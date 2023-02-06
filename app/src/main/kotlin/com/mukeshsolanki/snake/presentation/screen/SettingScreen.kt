@@ -15,16 +15,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.mukeshsolanki.snake.R
 import com.mukeshsolanki.snake.data.cache.GameCache
 import com.mukeshsolanki.snake.presentation.component.AppBar
 import com.mukeshsolanki.snake.presentation.component.AppButton
 import com.mukeshsolanki.snake.presentation.component.DisplayLarge
-import com.mukeshsolanki.snake.presentation.theme.border2dp
-import com.mukeshsolanki.snake.presentation.theme.padding16dp
-import com.mukeshsolanki.snake.presentation.theme.padding64dp
-import com.mukeshsolanki.snake.presentation.theme.width248dp
+import com.mukeshsolanki.snake.presentation.theme.*
 import kotlinx.coroutines.launch
 
 @Composable
@@ -89,5 +88,13 @@ fun SettingScreen(navController: NavHostController) {
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun preview(){
+    SnakeTheme {
+        SettingScreen(rememberNavController())
     }
 }

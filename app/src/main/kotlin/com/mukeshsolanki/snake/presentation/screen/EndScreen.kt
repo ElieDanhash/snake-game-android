@@ -10,12 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import com.mukeshsolanki.snake.R
 import com.mukeshsolanki.snake.presentation.activity.GameActivity
 import com.mukeshsolanki.snake.presentation.component.AppBar
 import com.mukeshsolanki.snake.presentation.component.AppButton
 import com.mukeshsolanki.snake.presentation.component.DisplayLarge
 import com.mukeshsolanki.snake.presentation.component.TitleLarge
+import com.mukeshsolanki.snake.presentation.theme.SnakeTheme
 import com.mukeshsolanki.snake.presentation.theme.padding8dp
 
 @Composable
@@ -40,5 +42,13 @@ fun EndScreen(score: Int, onTryAgain: () -> Unit) {
             )
             AppButton(text = stringResource(R.string.try_again)) { onTryAgain.invoke() }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun Preview() {
+    SnakeTheme {
+        EndScreen(score = 1, onTryAgain =  {})
     }
 }
