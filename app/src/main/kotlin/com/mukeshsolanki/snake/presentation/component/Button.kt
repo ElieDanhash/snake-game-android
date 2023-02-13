@@ -38,7 +38,7 @@ fun AppButton(modifier: Modifier = Modifier, text: String, onClick: () -> Unit) 
 }
 
 @Composable
-fun SoundButton(modifier: Modifier = Modifier, drawable: Int, onClick: () -> Unit) {
+fun IconTextButton(modifier: Modifier = Modifier, text: Int, drawable: Int, onClick: () -> Unit) {
     Button(
         modifier = modifier,
         onClick = onClick,
@@ -47,11 +47,12 @@ fun SoundButton(modifier: Modifier = Modifier, drawable: Int, onClick: () -> Uni
             contentColor = MaterialTheme.colorScheme.onBackground
         ),
     ) {
+        Icon(painter = painterResource(id = drawable), contentDescription = "")
+Spacer(modifier = Modifier.size(padding8dp))
         BodyLarge(
-            text = stringResource(R.string.sound),
+            text = stringResource(text),
             textAlign = TextAlign.End,
         )
-        Icon(painter = painterResource(id = drawable), contentDescription = "")
     }
 }
 
@@ -95,6 +96,6 @@ private fun Preview2() {
 @Composable
 private fun Preview3() {
     SnakeTheme {
-        SoundButton(modifier = Modifier, drawable = R.drawable.ic_volume_up, onClick = {})
+        IconTextButton(modifier = Modifier, text = R.string.sound, drawable = R.drawable.ic_volume_up, onClick = {})
     }
 }

@@ -20,7 +20,7 @@ import com.mukeshsolanki.snake.domain.navigation.Screen
 import com.mukeshsolanki.snake.presentation.activity.GameActivity
 import com.mukeshsolanki.snake.presentation.component.AppButton
 import com.mukeshsolanki.snake.presentation.component.DisplayLarge
-import com.mukeshsolanki.snake.presentation.component.SoundButton
+import com.mukeshsolanki.snake.presentation.component.IconTextButton
 import com.mukeshsolanki.snake.presentation.theme.*
 import kotlinx.coroutines.launch
 
@@ -38,14 +38,29 @@ fun MenuScreen(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         val sound = dataStore.getSound.collectAsState(initial = true).value
-        SoundButton(
-            modifier = Modifier.padding(padding16dp).align(Alignment.End),
-            drawable = if (sound) R.drawable.ic_volume_up else R.drawable.ic_volume_off,
-            onClick = {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            IconTextButton(
+                modifier = Modifier
+                    .padding(padding8dp),
+                drawable = R.drawable.ic_flag,
+                text = R.string.high_score,
+            ) {
+                navController.navigate(Screen.HighScores.route)
+            }
+            IconTextButton(
+                modifier = Modifier
+                    .padding(padding8dp),
+                text = R.string.sound,
+                drawable = if (sound) R.drawable.ic_volume_up else R.drawable.ic_volume_off,
+            ) {
                 scope.launch {
                     dataStore.saveSound(!sound)
                 }
-            })
+            }
+        }
 
         Column(
             modifier = Modifier
@@ -62,14 +77,6 @@ fun MenuScreen(navController: NavHostController) {
                     .padding(top = padding64dp),
                 text = stringResource(R.string.new_game)
             ) { context.launchActivity<GameActivity>() }
-            AppButton(
-                modifier = Modifier
-                    .width(width248dp)
-                    .padding(top = padding16dp),
-                text = stringResource(R.string.high_score)
-            ) {
-                navController.navigate(Screen.HighScores.route)
-            }
             AppButton(
                 modifier = Modifier
                     .width(width248dp)
