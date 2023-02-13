@@ -61,11 +61,11 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
     ),
-//    bodyMedium = TextStyle(
-//        fontFamily = appFontFamily,
-//        fontWeight = FontWeight.Normal,
-//        fontSize = 14.sp,
-//    ),
+    bodyMedium = TextStyle(
+        fontFamily = appFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+    ),
 //    bodySmall = TextStyle(
 //        fontFamily = appFontFamily,
 //        fontWeight = FontWeight.Normal,

@@ -11,7 +11,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import com.mukeshsolanki.snake.domain.game.SnakeDirection
+import com.mukeshsolanki.snake.presentation.theme.SnakeTheme
 import com.mukeshsolanki.snake.presentation.theme.padding24dp
 import com.mukeshsolanki.snake.presentation.theme.size64dp
 
@@ -50,5 +52,13 @@ fun Controller(onDirectionChange: (Int) -> Unit) {
                 currentDirection.value = SnakeDirection.Down
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun Preview() {
+    SnakeTheme {
+        Controller {}
     }
 }

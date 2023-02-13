@@ -1,5 +1,6 @@
 package com.mukeshsolanki.snake.presentation.activity
 
+import android.media.MediaPlayer
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -20,6 +21,7 @@ import kotlinx.coroutines.launch
 
 class GameActivity : BaseActivity() {
     private lateinit var dataStore: GameCache
+    private var sound: Boolean = true
     private val isPlaying = mutableStateOf(true)
     private var score = mutableStateOf(0)
     private lateinit var scope: CoroutineScope
@@ -29,15 +31,27 @@ class GameActivity : BaseActivity() {
         scope = lifecycleScope,
         onGameEnded = {
             if (isPlaying.value) {
+                if (sound) {
+                    val mp = MediaPlayer.create(this, R.raw.game_over)
+                    mp.start()
+                }
                 isPlaying.value = false
                 scope.launch { dataStore.saveHighScore(highScores) }
             }
         },
-        onFoodEaten = { score.value++ }
+        onFoodEaten = {
+            if (sound) {
+                val mp = MediaPlayer.create(this, R.raw.ping)
+                mp.start()
+            }
+            score.value++
+        }
     )
 
     @Composable
     override fun Content() {
+        dataStore = GameCache(applicationContext)
+        sound = dataStore.getSound.collectAsState(initial = true).value
         scope = rememberCoroutineScope()
         dataStore = GameCache(applicationContext)
         playerName =

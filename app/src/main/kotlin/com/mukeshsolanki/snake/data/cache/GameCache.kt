@@ -3,6 +3,7 @@ package com.mukeshsolanki.snake.data.cache
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -12,6 +13,7 @@ import com.mukeshsolanki.snake.R
 import com.mukeshsolanki.snake.data.model.HighScore
 import com.mukeshsolanki.snake.domain.base.DATASTORE_KEY_HIGH_SCORES
 import com.mukeshsolanki.snake.domain.base.DATASTORE_KEY_PLAYER_NAME
+import com.mukeshsolanki.snake.domain.base.DATASTORE_KEY_SOUND
 import com.mukeshsolanki.snake.domain.base.DATASTORE_NAME
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -19,8 +21,13 @@ import kotlinx.coroutines.flow.map
 class GameCache(private val context: Context) {
     companion object {
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(DATASTORE_NAME)
+        val SOUND_KEY = booleanPreferencesKey(DATASTORE_KEY_SOUND)
         val HIGH_SCORES_KEY = stringPreferencesKey(DATASTORE_KEY_HIGH_SCORES)
         val PLAYER_NAME_KEY = stringPreferencesKey(DATASTORE_KEY_PLAYER_NAME)
+    }
+
+    val getSound: Flow<Boolean> = context.dataStore.data.map { preferences ->
+       preferences[SOUND_KEY]?: true
     }
 
     val getHighScores: Flow<List<HighScore>> = context.dataStore.data.map { preferences ->
@@ -31,6 +38,12 @@ class GameCache(private val context: Context) {
 
     val getPlayerName: Flow<String> = context.dataStore.data.map { preferences ->
         preferences[PLAYER_NAME_KEY] ?: context.getString(R.string.default_player_name)
+    }
+
+    suspend fun saveSound(value: Boolean) {
+        context.dataStore.edit { preferences ->
+            preferences[SOUND_KEY] = value
+        }
     }
 
     suspend fun saveHighScore(highScores: List<HighScore>) {

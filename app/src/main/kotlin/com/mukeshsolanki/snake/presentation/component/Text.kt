@@ -55,6 +55,16 @@ fun BodyLarge(modifier: Modifier = Modifier, text: String, textAlign: TextAlign 
         textAlign = textAlign
     )
 }
+@Composable
+fun BodyMedium(modifier: Modifier = Modifier, text: String, textAlign: TextAlign = TextAlign.Start) {
+    Text(
+        modifier = modifier,
+        text = text,
+        color = MaterialTheme.colorScheme.primary,
+        style = MaterialTheme.typography.bodyMedium,
+        textAlign = textAlign
+    )
+}
 
 @Preview
 @Composable
@@ -75,6 +85,11 @@ private fun preview() {
                 textAlign = TextAlign.Center
             )
             BodyLarge(
+                modifier = Modifier.padding(padding8dp),
+                text = stringResource(R.string.game_over),
+                textAlign = TextAlign.Center
+            )
+            BodyMedium(
                 modifier = Modifier.padding(padding8dp),
                 text = stringResource(R.string.game_over),
                 textAlign = TextAlign.Center
